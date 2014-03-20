@@ -215,6 +215,11 @@ litle:
   password: MERCHANT
   merchant_id: 101
 
+# Working credentials, no need to replace
+marathon_solutions:
+  some_credential: SOMECREDENTIAL
+  another_credential: ANOTHERCREDENTIAL
+
 # Working test credentials, no need to replace
 maxipago:
   login: "100"
