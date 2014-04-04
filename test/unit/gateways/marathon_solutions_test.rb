@@ -3,12 +3,19 @@ require 'test_helper'
 class MarathonSolutionsTest < Test::Unit::TestCase
   def setup
     @gateway = MarathonSolutionsGateway.new(
-      some_credential: 'login',
-      another_credential: 'password'
+      syn_act: 'Demo-Syn',
+      password: 'Demo123'
     )
 
-    @credit_card = credit_card
-    @amount = 100
+
+    @credit_card = ActiveMerchant::Billing::CreditCard.new(
+      type: 'visa',
+      number: '4111111111111111',
+      month: '10',
+      year: '16',
+    )
+    @amount = 9
+
 
     @options = {
       order_id: '1',
@@ -18,8 +25,10 @@ class MarathonSolutionsTest < Test::Unit::TestCase
   end
 
   def test_successful_purchase
-    @gateway.expects(:ssl_post).returns(successful_purchase_response)
+    # p @gateway.expects(:ssl_post).returns()
 
+    p "@gateway"
+    p @gateway
     response = @gateway.purchase(@amount, @credit_card, @options)
     assert_success response
 
@@ -27,36 +36,36 @@ class MarathonSolutionsTest < Test::Unit::TestCase
     assert response.test?
   end
 
-  def test_failed_purchase
-    @gateway.expects(:ssl_post).returns(failed_purchase_response)
+  # def test_failed_purchase
+  #   @gateway.expects(:ssl_post).returns(failed_purchase_response)
 
-    response = @gateway.purchase(@amount, @credit_card, @options)
-    assert_failure response
-  end
+  #   response = @gateway.purchase(@amount, @credit_card, @options)
+  #   assert_failure response
+  # end
 
-  def test_successful_authorize
-  end
+  # def test_successful_authorize
+  # end
 
-  def test_failed_authorize
-  end
+  # def test_failed_authorize
+  # end
 
-  def test_successful_capture
-  end
+  # def test_successful_capture
+  # end
 
-  def test_failed_capture
-  end
+  # def test_failed_capture
+  # end
 
-  def test_successful_refund
-  end
+  # def test_successful_refund
+  # end
 
-  def test_failed_refund
-  end
+  # def test_failed_refund
+  # end
 
-  def test_successful_void
-  end
+  # def test_successful_void
+  # end
 
-  def test_failed_void
-  end
+  # def test_failed_void
+  # end
 
   private
 
